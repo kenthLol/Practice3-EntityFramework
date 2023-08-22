@@ -55,7 +55,7 @@ namespace thirdPractice.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,LastName,Email,Birthday,Photo")] User user)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Email,Birthday,Photo")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +87,7 @@ namespace thirdPractice.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,LastName,Email,Birthday,Photo")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email,Birthday,Photo")] User user)
         {
             if (id != user.Id)
             {
