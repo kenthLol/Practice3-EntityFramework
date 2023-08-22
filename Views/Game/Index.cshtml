@@ -4,56 +4,47 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Inicio</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Crear nuevo</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.GameName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Platform)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th></th>
+           <h1 class="mb-4">Registro de juegos</h1>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.GameName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Platform)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    <div class="card" style="max-width: auto;">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div class="flex-grow-1">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <img src=@item.Image class="card-img-top" alt="Game Photo" style="max-width: 500px; max-height: 800px;">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <h5 class="card-title"><strong>Titulo:</strong> @Html.DisplayFor(modelItem => item.GameName)
+                                            <p class="card-text"><strong>Descripción:</strong> @Html.DisplayFor(modelItem => item.Description)</p>
+                                            <p class="card-text"><strong>Plataforma: @Html.DisplayFor(modelItem => item.Platform)</strong></p>
+                                            <p class="card-text"><strong>Precio: @Html.DisplayFor(modelItem => item.Price)</strong></p>
+                                            <div class="text-right my-auto">
+                                                <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-primary">Editar</a>
+                                                <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-secondary">Detalles</a>
+                                                <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-danger">Borrar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
