@@ -1,0 +1,53 @@
+@model IEnumerable<thirdPractice.Models.Music>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Inicio</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear nuevo album</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+           <h1 class="mb-4">Registro de álbumes</h1>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    <div class="card" style="max-width: auto;">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div class="flex-grow-1">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <img src=@item.UrlCover class="card-img-top" alt="Portrait Photo" style="max-width: 500px; max-height: 500px;">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <h5 class="card-title"><strong>Album:</strong> @Html.DisplayFor(modelItem => item.AlbumName)
+                                            <p class="card-text"><strong>Artista:</strong> @Html.DisplayFor(modelItem => item.Artist)</p>
+                                            <p class="card-text"><strong>Género:</strong> @Html.DisplayFor(modelItem => item.Genre)</p>
+                                            <p class="card-text"><strong>Lanzamiento:</strong> @Html.DisplayFor(modelItem => item.ReleaseDate)</p>
+                                            <p class="card-text"><strong>Descripción:</strong> @Html.DisplayFor(modelItem => item.Description)</p>
+                                            <div class="text-right my-auto">
+                                                <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-primary">Editar</a>
+                                                <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-secondary">Detalles</a>
+                                                <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-danger">Borrar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
