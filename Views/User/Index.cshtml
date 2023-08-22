@@ -1,0 +1,49 @@
+@model IEnumerable<thirdPractice.Models.User>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear Nuevo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <h1 class="mb-4">Registro de Usuarios</h1>
+        </tr>
+    </thead>
+   <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                <div class="card" style="max-width: 700px;">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div class="flex-grow-1">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <img src=@item.Photo class="card-img-top" alt="User Photo" style="max-width: 100px; max-height: 100px;">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</h5>
+                                        <p class="card-text">B-day: @Html.DisplayFor(modelItem => item.Birthday)</p>
+                                        <p class="card-text"><strong>@Html.DisplayFor(modelItem => item.Email)</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-right my-auto">
+                                <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-primary">Edit</a>
+                                <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-secondary">Details</a>
+                                <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-danger">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
