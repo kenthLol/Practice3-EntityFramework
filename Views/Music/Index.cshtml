@@ -7,47 +7,64 @@
 <h1>Inicio</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Crear nuevo album</a>
+    <a asp-action="Create" class="btn btn-primary">Registrar Nuevo Album</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-           <h1 class="mb-4">Registro de álbumes</h1>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model) {
-            <tr>
-                <td>
-                    <div class="card" style="max-width: auto;">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                <div class="flex-grow-1">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <img src=@item.UrlCover class="card-img-top" alt="Portrait Photo" style="max-width: 500px; max-height: 500px;">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <h5 class="card-title"><strong>Album:</strong> @Html.DisplayFor(modelItem => item.AlbumName)
-                                            <p class="card-text"><strong>Artista:</strong> @Html.DisplayFor(modelItem => item.Artist)</p>
-                                            <p class="card-text"><strong>Género:</strong> @Html.DisplayFor(modelItem => item.Genre)</p>
-                                            <p class="card-text"><strong>Lanzamiento:</strong> @Html.DisplayFor(modelItem => item.ReleaseDate)</p>
-                                            <p class="card-text"><strong>Descripción:</strong> @Html.DisplayFor(modelItem => item.Description)</p>
-                                            <div class="text-right my-auto">
-                                                <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-primary">Editar</a>
-                                                <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-secondary">Detalles</a>
-                                                <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-danger">Borrar</a>
+<div class="mb-4">
+    <form asp-action="Search" method="get" class="form-inline justify-content-end">
+        <div class="input-group">
+            <input type="text" class="form-control mr-2" name="Search" placeholder="Buscar por álbum, artista o género">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </div>
+    </form>
+</div>
+
+<h1 class="mb-4">Registro de álbumes</h1>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning" role="alert">
+        <h4 class="alert-heading">¡Oops!</h4>
+        <p>El álbum, el artista o el género que buscas, no existe.</p>
+    </div>
+}
+else
+{
+    <table class="table">
+        <tbody>
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        <div class="card" style="max-width: auto;">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div class="flex-grow-1">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <img src=@item.UrlCover class="card-img-top" alt="Portrait Photo" style="max-width: 500px; max-height: 500px;">
+                                            </div>
+                                            <div class="col-md-8">
+                                                <h5 class="card-title"><strong>Album:</strong> @Html.DisplayFor(modelItem => item.AlbumName)
+                                                <p class="card-text"><strong>Artista:</strong> @Html.DisplayFor(modelItem => item.Artist)</p>
+                                                <p class="card-text"><strong>Género:</strong> @Html.DisplayFor(modelItem => item.Genre)</p>
+                                                <p class="card-text"><strong>Lanzamiento:</strong> @Html.DisplayFor(modelItem => item.ReleaseDate)</p>
+                                                <p class="card-text"><strong>Descripción:</strong> @Html.DisplayFor(modelItem => item.Description)</p>
+                                                <div class="text-right my-auto">
+                                                    <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-primary">Editar</a>
+                                                    <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-secondary">Detalles</a>
+                                                    <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-danger">Eliminar</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
 
 
