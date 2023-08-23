@@ -26,6 +26,23 @@ namespace thirdPractice.Controllers
                           Problem("Entity set 'AppDbContext.Users'  is null.");
         }
 
+        // GET: User
+        public async Task<IActionResult> Search(string search)
+        {
+            IQueryable<User> userQuery = _context.Users;
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                userQuery = userQuery.Where(c =>
+                    (c.FirstName != null && c.FirstName.Contains(search)) ||
+                    (c.LastName != null && c.LastName.Contains(search)));
+            }
+
+            var users = await userQuery.ToListAsync();
+
+            return View("Index", users); // Redirige a la vista "Index" con los resultados de la búsqueda
+        }
+
         // GET: User/Details/5
         public async Task<IActionResult> Details(int? id)
         {
