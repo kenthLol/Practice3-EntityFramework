@@ -26,6 +26,24 @@ namespace thirdPractice.Controllers
                           Problem("Entity set 'AppDbContext.Games'  is null.");
         }
 
+        // GET: Game
+        public async Task<IActionResult> Search(string search)
+        {
+            IQueryable<Game> gameQuery = _context.Games;
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                gameQuery = gameQuery.Where(c =>
+                    (c.GameName != null && c.GameName.Contains(search)) ||
+                    (c.Platform != null && c.Platform.Contains(search))
+                    );
+            }
+
+            var games = await gameQuery.ToListAsync();
+
+            return View("Index", games); // Redirige a la vista "Index" con los resultados de la búsqueda
+        }
+
         // GET: Game/Details/5
         public async Task<IActionResult> Details(int? id)
         {
