@@ -26,6 +26,25 @@ namespace thirdPractice.Controllers
                           Problem("Entity set 'AppDbContext.Musics'  is null.");
         }
 
+        // GET: Music
+        public async Task<IActionResult> Search(string search)
+        {
+            IQueryable<Music> musicQuery = _context.Musics;
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                musicQuery = musicQuery.Where(c =>
+                    (c.AlbumName != null && c.AlbumName.Contains(search)) ||
+                    (c.Artist != null && c.Artist.Contains(search)) ||
+                    (c.Genre != null && c.Genre.Contains(search))
+                    );
+            }
+
+            var musics = await musicQuery.ToListAsync();
+
+            return View("Index", musics); // Redirige a la vista "Index" con los resultados de la búsqueda
+        }
+
         // GET: Music/Details/5
         public async Task<IActionResult> Details(int? id)
         {
